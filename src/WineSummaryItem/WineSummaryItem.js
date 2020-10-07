@@ -1,7 +1,7 @@
 import React from 'react';
 
-const wineSummaryItem = () =>{
-    return <p>2007 Rioja </p>
+const wineSummaryItem = (props) =>{
+return <p>{props.year} {props.type}</p>
 };
 
 
