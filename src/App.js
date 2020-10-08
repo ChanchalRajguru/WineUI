@@ -29,13 +29,13 @@ class App extends Component {
 ]
   }
   render() {
-    const someMessage = "A new react app message";
+    const nums = [1,2,3,4];
+    const newNums = nums.map(num => {
+      return 'Item-' + num;
+    })
     return (
       <div>
-        <WineSummaryItem year={this.state.winesummaries[0].year} type={this.state.winesummaries[0].name}/>
-        <WineSummaryItem year={this.state.winesummaries[1].year} type={this.state.winesummaries[1].name}/>
-        <WineSummaryItem year={this.state.winesummaries[2].year} type={this.state.winesummaries[2].name}/>
-        <WineSummaryItem year={this.state.winesummaries[3].year} type={this.state.winesummaries[3].name}/>
+        <p>{newNums}</p>
       </div>
     );
     // return React.createElement('h1', null, "Hello from my very first react app updated.");
