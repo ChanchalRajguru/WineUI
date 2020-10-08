@@ -1,44 +1,41 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import axios from "axios";
+
 import "./App.css";
 import WineSummaryItem from "./WineSummaryItem/WineSummaryItem";
 
 class App extends Component {
   state = {
-    winesummaries : [      
-      {
-      "name": "CHATEAU DE SAINT COSME",
-      "id": 1,
-      "year": 2009
-  },
-  {
-      "name": "LAN RIOJA CRIANZA",
-      "id": 2,
-      "year": 2006
-  },
-  {
-      "name": "MARGERUM SYBARITE",
-      "id": 3,
-      "year": 2010
-  },
-  {
-    "name": "REX HILL",
-    "id": 5,
-    "year": 2009
-  },
-  {
-    "name": "NEW HILL",
-    "id": 7,
-    "year": 2009
+    winesummaries: [],
+  };
+
+  //Axios is used for REST endpoints
+  fetchWineSummaries = () => {
+    axios.get("http://localhost:8080/wines/summary/").then((response) => {
+      this.setState({
+        winesummaries: response.data,
+      });
+      console.log(response.data);
+    });
+  };
+
+  //componentDidMount is react lifecycle method.
+  componentDidMount() {
+    this.fetchWineSummaries();
   }
-]
-  }
+
   render() {
     return (
       <div>
-        {this.state.winesummaries.map(wineSummary=>{
+        {this.state.winesummaries.map((wineSummary) => {
           //key is an in-built property.
-          return <WineSummaryItem key={wineSummary.id} year={wineSummary.year} name = {wineSummary.name}/>
+          return (
+            <WineSummaryItem
+              key={wineSummary.id}
+              year={wineSummary.year}
+              name={wineSummary.name}
+            />
+          );
         })}
       </div>
     );
