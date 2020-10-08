@@ -25,17 +25,21 @@ class App extends Component {
     "name": "REX HILL",
     "id": 5,
     "year": 2009
+  },
+  {
+    "name": "NEW HILL",
+    "id": 7,
+    "year": 2009
   }
 ]
   }
   render() {
-    const nums = [1,2,3,4];
-    const newNums = nums.map(num => {
-      return 'Item-' + num;
-    })
     return (
       <div>
-        <p>{newNums}</p>
+        {this.state.winesummaries.map(wineSummary=>{
+          //key is an in-built property.
+          return <WineSummaryItem key={wineSummary.id} year={wineSummary.year} name = {wineSummary.name}/>
+        })}
       </div>
     );
     // return React.createElement('h1', null, "Hello from my very first react app updated.");
