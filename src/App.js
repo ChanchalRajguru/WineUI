@@ -7,6 +7,7 @@ import WineSummaryItem from "./WineSummaryItem/WineSummaryItem";
 class App extends Component {
   state = {
     winesummaries: [],
+    selectedWine: null,
     fetchError: false,
   };
 
@@ -28,7 +29,14 @@ class App extends Component {
   };
 
   wineClickHandler = (id) => {
-    console.log("A wine was clicked id: " + id);
+    axios
+      .get("http://localhost:8080/wines/" + id)
+      .then((response) => {
+        console.log(response.data);
+        this.setState({
+          selectedWine: response.data,
+        });
+      })
   };
 
   //componentDidMount is react lifecycle method.
