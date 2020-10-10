@@ -3,6 +3,7 @@ import axios from "axios";
 
 import "./App.css";
 import WineSummaryItem from "./WineSummaryItem/WineSummaryItem";
+import WineDetails from "./WineDetails/WineDetail";
 
 class App extends Component {
   state = {
@@ -29,14 +30,12 @@ class App extends Component {
   };
 
   wineClickHandler = (id) => {
-    axios
-      .get("http://localhost:8080/wines/" + id)
-      .then((response) => {
-        console.log(response.data);
-        this.setState({
-          selectedWine: response.data,
-        });
-      })
+    axios.get("http://localhost:8080/wines/" + id).then((response) => {
+      console.log(response.data);
+      this.setState({
+        selectedWine: response.data,
+      });
+    });
   };
 
   //componentDidMount is react lifecycle method.
@@ -55,12 +54,22 @@ class App extends Component {
             id={wineSummary.id}
             year={wineSummary.year}
             name={wineSummary.name}
-            clickHandler={()=> this.wineClickHandler(wineSummary.id)}
+            clickHandler={() => this.wineClickHandler(wineSummary.id)}
           />
         );
       });
     }
-    return <div>{wineSummariesList}</div>;
+    let wineDetails = <p>Please select a wine to view details</p>
+    if(this.state.selectedWine){
+      wineDetails = <WineDetails wine={this.state.selectedWine}/>
+    }
+    return (
+      <div>
+        {wineSummariesList}
+        <hr/>
+        {wineDetails}
+      </div>
+    );
     // return React.createElement('h1', null, "Hello from my very first react app updated.");
   }
 }
