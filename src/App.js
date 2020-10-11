@@ -38,6 +38,15 @@ class App extends Component {
     });
   };
 
+  deleteWineHandler = (id) => {
+    axios.get("http://localhost:8080/wines/" + id).then((response) => {
+      console.log(response.data);
+      this.setState({
+        selectedWine: response.data,
+      });
+    });
+  };
+
   //componentDidMount is react lifecycle method.
   componentDidMount() {
     this.fetchWineSummaries();
