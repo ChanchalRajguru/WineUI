@@ -19,6 +19,7 @@ class App extends Component {
       .then((response) => {
         this.setState({
           winesummaries: response.data,
+          selectedWine: null,
         });
       })
       .catch((error) => {
@@ -39,11 +40,8 @@ class App extends Component {
   };
 
   deleteWineHandler = (id) => {
-    axios.get("http://localhost:8080/wines/" + id).then((response) => {
-      console.log(response.data);
-      this.setState({
-        selectedWine: response.data,
-      });
+    axios.delete("http://localhost:8080/wines/" + id).then((response) => {
+      this.fetchWineSummaries();
     });
   };
 
@@ -68,14 +66,21 @@ class App extends Component {
         );
       });
     }
-    let wineDetails = <p>Please select a wine to view details</p>
-    if(this.state.selectedWine){
-      wineDetails = <WineDetails wine={this.state.selectedWine}/>
+    let wineDetails = <p>Please select a wine to view details</p>;
+    if (this.state.selectedWine) {
+      wineDetails = (
+        <WineDetails
+          wine={this.state.selectedWine}
+          deleteClickHandler={() =>
+            this.deleteWineHandler(this.state.selectedWine.id)
+          }
+        />
+      );
     }
     return (
       <div>
         {wineSummariesList}
-        <hr/>
+        <hr />
         {wineDetails}
       </div>
     );

@@ -15,7 +15,7 @@ const wineDetails = (props) => {
       <section>
         <button>New</button>
         <button>Save</button>
-        <button>Delete</button>
+        <button onClick={props.deleteClickHandler}>Delete</button>
       </section>
     </div>
   );
